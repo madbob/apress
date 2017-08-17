@@ -15,6 +15,7 @@ class CreateTweetsTable extends Migration
             $table->string('content');
             $table->dateTimeTz('schedule');
             $table->boolean('sent')->default(false);
+            $table->string('error')->default('');
         });
     }
 

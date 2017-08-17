@@ -17,7 +17,7 @@ class Tweet extends Model
     public static function dispatchAll()
     {
         $now = date('Y-m-d H:i:s');
-        $tweets = self::where('schedule', '<', $now)->where('sent', false)->get();
+        $tweets = self::where('schedule', '<=', $now)->where('sent', false)->get();
         $managed = [];
 
         foreach($tweets as $tweet) {
@@ -25,12 +25,14 @@ class Tweet extends Model
                 $account = $tweet->account;
                 Twitter::reconfig(['token' => $account->oauth_token, 'secret' => $account->oauth_secret_token]);
                 Twitter::postTweet(['status' => $tweet->content, 'format' => 'json']);
-                $managed[] = $tweet->id;
             }
             catch(\Exception $e) {
                 Log::error('Error sending tweet ' . $tweet->id . ': ' . $e->getMessage());
+                $tweet->error = $e->getMessage();
+                $tweet->save();
             }
 
+            $managed[] = $tweet->id;
             usleep(500000);
         }
 

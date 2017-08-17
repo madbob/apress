@@ -15,4 +15,9 @@ class User extends Authenticatable
     {
         return $this->hasManyThrough('App\Tweet', 'App\Account')->where('sent', false)->orderBy('schedule', 'asc');
     }
+
+    public function errorTweets()
+    {
+        return $this->hasManyThrough('App\Tweet', 'App\Account')->where('sent', true)->where('error', '!=', '')->orderBy('schedule', 'asc');
+    }
 }

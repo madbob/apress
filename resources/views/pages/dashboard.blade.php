@@ -81,6 +81,55 @@
     </div>
 </section>
 
+@if($user->errorTweets()->count() != 0)
+    <section class="section">
+        <div class="container">
+             @foreach($user->errorTweets as $tweet)
+                 <?php $schedules_to_seconds = strtotime($tweet->schedule) ?>
+                 <div class="box">
+                    <progress class="progress is-danger is-small" value="100" max="100">100%</progress>
+
+                    <article class="media">
+                        <div class="media-left">
+                            <figure class="image is-64x64">
+                                <img src="{{ $tweet->account->picture_url }}" alt="{{ $tweet->account->handle }}">
+                            </figure>
+                        </div>
+                        <div class="media-content">
+                            <div class="content">
+                                <p>
+                                    {!! nl2br($tweet->content) !!}
+                                </p>
+                            </div>
+                            <nav class="level is-mobile">
+                                <div class="level-left">
+                                    <span class="level-item">
+                                        <p class="has-text-danger">
+                                            An error occourred! {{ $tweet->error }}
+                                        </p>
+                                    </span>
+                                </div>
+                            </nav>
+                            <nav class="level is-mobile">
+                                <div class="level-left">
+                                    <span class="level-item">
+                                        <p class="has-text-grey-light">
+                                            Had to be published on {{ date('d/m/Y', $schedules_to_seconds) }} at {{ date('H:i', $schedules_to_seconds) }}
+                                        </p>
+                                    </span>
+                                    <a class="level-item" href="{{ url('dashboard/?remove=' . $tweet->id) }}">
+                                        <span class="icon"><i class="fa fa-remove"></i></span>
+                                    </a>
+                                </div>
+                            </nav>
+                        </div>
+                    </article>
+                </div>
+             @endforeach
+        </div>
+    </section>
+@endif
+
 <section class="section">
     <div class="container">
         @if($user->tweets()->count() == 0)
