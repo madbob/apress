@@ -1,0 +1,27 @@
+@import "bulma";
+
+.floating-notification {
+    position: absolute;
+    display: inline-block;
+    top: 10px;
+    right: 10px;
+}
+
+.media-content {
+    .content {
+        word-break: break-all;
+    }
+}
+
+.account-select {
+    img {
+        vertical-align: middle;
+    }
+}
+
+#charnum {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    color: #AAA;
+}
