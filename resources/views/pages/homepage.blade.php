@@ -4,6 +4,7 @@
 
 <section class="section">
     <div class="container has-text-centered">
+        <img src="{{ url('img/logo.png') }}" alt="apress">
         <h1 class="title is-1">apress</h1>
         <h3 class="title is-3">A simple Twitter scheduler.</h3>
     </div>
