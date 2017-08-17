@@ -9,7 +9,7 @@
 
         <meta property="og:site_name" content="apress" />
         <meta property="og:title" content="A simple Twitter scheduler" />
-        <meta property="og:url" content="http://press.madbob.org/" />
+        <meta property="og:url" content="http://apress.madbob.org/" />
         <meta property="og:image" content="http://apress.madbob.org/img/fb.png" />
         <meta property="og:type" content="website" />
         <meta property="og:country-name" content="Italy" />
