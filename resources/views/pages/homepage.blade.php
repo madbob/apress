@@ -33,7 +33,7 @@
     <div class="container">
         <div class="content has-text-centered">
             <p>
-                <strong>apress</strong> by <a href="http://madbob.org/">Roberto Guido</a>. The source code is licensed <a href="http://opensource.org/licenses/mit-license.php">GPLv3+</a>.
+                <strong>apress</strong> by <a href="http://madbob.org/">Roberto Guido</a>. The source code is licensed <a href="https://www.gnu.org/licenses/agpl-3.0.txt">AGPLv3+</a>.
             </p>
             <p>
                 <a class="icon" href="https://github.com/madbob/apress">
