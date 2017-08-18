@@ -20,6 +20,14 @@ Route::get('login', 'AuthController@login')->name('twitter.login');
 Route::get('twitter/callback', 'AuthController@callback')->name('twitter.callback');
 Route::get('logout', 'AuthController@logout')->name('twitter.logout');
 
+/*
+    This is just to have a route named "login", required by auth middleware to
+    redirect expired logged users
+*/
+Route::get('l', ['as' => 'login', function() {
+    return Redirect::to(url('login'));
+}]);
+
 Route::get('twitter/error', ['as' => 'twitter.error', function(){
     echo "error";
 }]);
