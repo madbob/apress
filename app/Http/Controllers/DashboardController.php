@@ -70,4 +70,32 @@ class DashboardController extends Controller
             return Redirect::to('dashboard')->with('feedback', 'An error occourred, please retry');
         }
     }
+
+    public function accountRemove(Request $request, $id)
+    {
+        try {
+            $user = Auth::user();
+
+            $account = Account::find($id);
+            if ($account != null && $account->user_id == $user->id) {
+                $account->tweets()->delete();
+                $account->delete();
+
+                if ($user->accounts()->count() > 0) {
+                    return Redirect::to('dashboard')->with('feedback', 'Account removed!');
+                }
+                else {
+                    $user->delete();
+                    Auth::logout();
+                    return Redirect::to('login');
+                }
+            }
+            else {
+                return Redirect::to('dashboard')->with('feedback', 'Not Authorized');
+            }
+        }
+        catch(\Exception $e) {
+            return Redirect::to('dashboard')->with('feedback', 'An error occourred, please retry');
+        }
+    }
 }
