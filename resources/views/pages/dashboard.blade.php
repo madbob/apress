@@ -54,7 +54,7 @@
                                 <label class="label account-select">
                                     <input type="radio" name="account" value="{{ $account->id }}" {{ $edit != null && $edit->account_id == $account->id ? 'checked' : ($index == 0 ? 'checked' : '') }}>
                                     <img src="{{ $account->picture_url }}" alt="{{ $account->handle }}"> {{ $account->handle }}
-                                    <a href="{{ url('dashboard/account/remove/' . $account->id) }}" class="button is-danger is-pulled-right">Remove Account</a>
+                                    <a href="{{ url('dashboard/account/remove/' . $account->id) }}" class="button is-danger is-pulled-right is-small">Remove Account</a>
                                 </label>
                             @endforeach
 

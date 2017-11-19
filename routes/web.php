@@ -15,7 +15,7 @@ Route::get('/', 'CommonsController@homepage');
 Route::get('dispatch', 'CommonsController@dispatchAll');
 Route::get('dashboard', 'DashboardController@homepage');
 Route::post('dashboard/save', 'DashboardController@save');
-Route::post('dashboard/account/remove/{id}', 'DashboardController@accountRemove');
+Route::get('dashboard/account/remove/{id}', 'DashboardController@accountRemove');
 
 Route::get('login', 'AuthController@login')->name('twitter.login');
 Route::get('twitter/callback', 'AuthController@callback')->name('twitter.callback');
