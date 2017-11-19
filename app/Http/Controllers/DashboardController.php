@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Auth;
+use DB;
+use Log;
 use Redirect;
 
 use App\Account;
@@ -42,6 +44,8 @@ class DashboardController extends Controller
     public function save(Request $request)
     {
         try {
+            DB::beginTransaction();
+
             $this->validate($request, [
                 'account' => 'required',
                 'content' => 'required',
@@ -54,7 +58,7 @@ class DashboardController extends Controller
                 return Redirect::to('dashboard')->with('feedback', 'Not Authorized');
             }
 
-            $edit = $request->input('edit', '');
+            $edit = $request->input('tweet', '');
             if (!empty($edit))
                 $tweet = Tweet::find($edit);
             else
@@ -83,11 +87,13 @@ class DashboardController extends Controller
                 $media_ids[] = $m->id;
             }
 
-            $tweet->media()->sync($media_ids);
+            $tweet->media()->whereNotIn('id', $media_ids)->delete();
 
+            DB::commit();
             return Redirect::to('dashboard')->with('feedback', 'Tweet scheduled!');
         }
         catch(\Exception $e) {
+            Log::error('Error saving tweet: ' . $e->getMessage());
             return Redirect::to('dashboard')->with('feedback', 'An error occourred, please retry');
         }
     }
@@ -116,6 +122,7 @@ class DashboardController extends Controller
             }
         }
         catch(\Exception $e) {
+            Log::error('Error deleting account: ' . $e->getMessage());
             return Redirect::to('dashboard')->with('feedback', 'An error occourred, please retry');
         }
     }

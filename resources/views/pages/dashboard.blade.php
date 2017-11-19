@@ -70,7 +70,7 @@
 
                     <div class="file">
                         <label class="file-label">
-                            <input class="file-input" type="file" name="trigger">
+                            <input class="file-input" type="file" name="media[]">
                             <span class="file-cta">
                                 <span class="file-icon">
                                     <i class="fa fa-upload"></i>

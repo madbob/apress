@@ -7,6 +7,13 @@
     right: 10px;
 }
 
+.media-preview {
+    img {
+        max-width: 70%;
+        display: inline-block;
+    }
+}
+
 .media-content {
     .content {
         word-break: break-all;
