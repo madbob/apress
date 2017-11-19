@@ -13529,7 +13529,7 @@ $('body').on('change', '.file input:file', function() {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function (e) {
-            var cell = $('.media-preview.is-invisible').clone().removeClass('is-invisible').beforeTo('.file');
+            var cell = $('.media-preview.is-invisible').clone().removeClass('is-invisible').insertBefore('.file');
             cell.find('input:file').val(input.val());
             cell.find('img').attr('src', e.target.result);
             input.val('');

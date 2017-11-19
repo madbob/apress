@@ -10074,6 +10074,10 @@ label.panel-block:hover {
   vertical-align: middle;
 }
 
+.is-invisible {
+  display: none;
+}
+
 #charnum {
   position: absolute;
   bottom: 10px;
