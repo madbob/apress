@@ -62,7 +62,7 @@
 
                     <div class="media-preview is-invisible">
                         <input class="file-input" type="file" name="media[]">
-                        <img class="preview" src="{{ $media->as_data }}">
+                        <img class="preview" src="">
                         <a class="button is-danger is-small">
                             <i class="fa fa-remove"></i>
                         </a>
