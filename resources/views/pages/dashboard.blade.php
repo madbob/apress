@@ -34,7 +34,7 @@
                 </label>
                 <div class="control">
                     <textarea class="textarea" name="content">{{ $edit ? $edit->content : '' }}</textarea>
-                    <div id="charnum"><span>{{ $edit ? 140 - strlen($edit->content) : 140 }}</span> / 140</div>
+                    <div id="charnum"><span>{{ $edit ? 280 - strlen($edit->content) : 280 }}</span> / 280</div>
                 </div>
             </div>
 

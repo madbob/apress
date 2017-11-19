@@ -18,5 +18,5 @@ $('#datetimepicker').datetimepicker({
 
 $('textarea[name=content]').keyup(function() {
     var len = $(this).val().length;
-    $('#charnum span').text(140 - len);
+    $('#charnum span').text(280 - len);
 });
