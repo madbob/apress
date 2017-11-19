@@ -9,6 +9,7 @@ use Redirect;
 
 use App\Account;
 use App\Tweet;
+use App\Media;
 
 class DashboardController extends Controller
 {
@@ -63,6 +64,26 @@ class DashboardController extends Controller
             $tweet->content = $request->input('content');
             $tweet->schedule = $request->input('schedule');
             $tweet->save();
+
+            $media_ids = $request->input('keep_media', []);
+
+            foreach ($request->file('media') as $media) {
+                $folder = storage_path() . '/media/';
+                do {
+                    $filename = rand();
+                    $path = $folder . '/' . $filename;
+                } while (file_exists($path));
+
+                $media->move($folder, $filename);
+
+                $m = new Media();
+                $m->tweet_id = $tweet->id;
+                $m->path = $path;
+                $m->save();
+                $media_ids[] = $m->id;
+            }
+
+            $tweet->media()->sync($media_ids);
 
             return Redirect::to('dashboard')->with('feedback', 'Tweet scheduled!');
         }

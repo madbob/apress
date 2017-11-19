@@ -20,7 +20,7 @@
 
 <section class="section">
     <div class="container">
-        <form method="POST" action="{{ url('dashboard/save') }}">
+        <form method="POST" action="{{ url('dashboard/save') }}" enctype="multipart/form-data">
             {{ csrf_field() }}
             <input type="hidden" name="tweet" value="{{ $edit ? $edit->id : '' }}">
 
@@ -44,6 +44,42 @@
                         <div class="control">
                             <input id="datetimepicker" type="text" name="schedule" value="{{ $edit ? $edit->schedule : date('Y-m-d H:i:s') }}">
                         </div>
+                    </div>
+                </div>
+
+                <div class="column">
+                    @if($edit)
+                        @foreach($edit->media as $media)
+                            <div class="media-preview">
+                                <input type="hidden" name="keep_media[]" value="{{ $media->id }}">
+                                <img class="preview" src="{{ $media->as_data }}">
+                                <a class="button is-danger is-small">
+                                    <i class="fa fa-remove"></i>
+                                </a>
+                            </div>
+                        @endforeach
+                    @endif
+
+                    <div class="media-preview is-invisible">
+                        <input class="file-input" type="file" name="media[]">
+                        <img class="preview" src="{{ $media->as_data }}">
+                        <a class="button is-danger is-small">
+                            <i class="fa fa-remove"></i>
+                        </a>
+                    </div>
+
+                    <div class="file">
+                        <label class="file-label">
+                            <input class="file-input" type="file" name="trigger">
+                            <span class="file-cta">
+                                <span class="file-icon">
+                                    <i class="fa fa-upload"></i>
+                                </span>
+                                <span class="file-label">
+                                    Attach Image
+                                </span>
+                            </span>
+                        </label>
                     </div>
                 </div>
 
