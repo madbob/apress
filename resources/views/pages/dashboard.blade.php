@@ -198,6 +198,14 @@
                                 <p>
                                     {!! nl2br($tweet->content) !!}
                                 </p>
+
+                                @if($tweet->media->isEmpty() == false)
+                                    <div class="media-showcase">
+                                        @foreach($tweet->media as $m)
+                                            <img src="{{ $m->as_data }}">
+                                        @endforeach
+                                    </div>
+                                @endif
                             </div>
                             <nav class="level is-mobile">
                                 <div class="level-left">
