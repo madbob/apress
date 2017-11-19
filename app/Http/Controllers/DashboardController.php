@@ -87,7 +87,7 @@ class DashboardController extends Controller
                 else {
                     $user->delete();
                     Auth::logout();
-                    return Redirect::to('login');
+                    return Redirect::to('/');
                 }
             }
             else {
