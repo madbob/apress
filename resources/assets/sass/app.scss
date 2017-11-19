@@ -18,6 +18,14 @@
     .content {
         word-break: break-all;
     }
+
+    .media-showcase {
+        height: 200px;
+
+        img {
+            height: 100%;
+        }
+    }
 }
 
 .account-select {

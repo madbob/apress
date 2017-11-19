@@ -59,10 +59,15 @@ class DashboardController extends Controller
             }
 
             $edit = $request->input('tweet', '');
-            if (!empty($edit))
+            if (!empty($edit)) {
                 $tweet = Tweet::find($edit);
-            else
+                if ($tweet->account->user_id != $user->id) {
+                    return Redirect::to('dashboard')->with('feedback', 'Not Authorized');
+                }
+            }
+            else {
                 $tweet = new Tweet();
+            }
 
             $tweet->account_id = $account->id;
             $tweet->content = $request->input('content');
@@ -70,21 +75,23 @@ class DashboardController extends Controller
             $tweet->save();
 
             $media_ids = $request->input('keep_media', []);
+            $attached_media = $request->file('media');
+            if (is_array($attached_media)) {
+                foreach ($attached_media as $media) {
+                    $folder = storage_path() . '/media/';
+                    do {
+                        $filename = rand();
+                        $path = $folder . '/' . $filename;
+                    } while (file_exists($path));
 
-            foreach ($request->file('media') as $media) {
-                $folder = storage_path() . '/media/';
-                do {
-                    $filename = rand();
-                    $path = $folder . '/' . $filename;
-                } while (file_exists($path));
+                    $media->move($folder, $filename);
 
-                $media->move($folder, $filename);
-
-                $m = new Media();
-                $m->tweet_id = $tweet->id;
-                $m->path = $path;
-                $m->save();
-                $media_ids[] = $m->id;
+                    $m = new Media();
+                    $m->tweet_id = $tweet->id;
+                    $m->path = $path;
+                    $m->save();
+                    $media_ids[] = $m->id;
+                }
             }
 
             $tweet->media()->whereNotIn('id', $media_ids)->delete();
