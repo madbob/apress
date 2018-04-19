@@ -30,7 +30,7 @@
                    @endif
                @else
                    <p>
-                       <span class="icon"><i class="fa fa-retweet"></i></span> {{ $tweet->retweet }}
+                       <span class="icon"><i class="fa fa-retweet"></i></span> <a href="{{ $tweet->retweet }}" target="_blank">{{ $tweet->retweet }}</a>
                    </p>
                @endif
            </div>

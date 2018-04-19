@@ -24,38 +24,19 @@
             {{ csrf_field() }}
             <input type="hidden" name="tweet" value="{{ $edit ? $edit->id : '' }}">
 
-            <div class="field">
-                <label class="label">
-                    @if($edit == null)
-                        Schedule new Tweet
-                    @else
-                        Edit Tweet
-                    @endif
-                </label>
-                <div class="control">
-                    <textarea class="textarea" name="content">{{ $edit ? $edit->content : '' }}</textarea>
-                    <div id="charnum"><span>{{ $edit ? 280 - strlen($edit->content) : 280 }}</span> / 280</div>
-                </div>
-            </div>
-
-            <div class="field">
-                <label class="label">
-                    @if($edit == null)
-                        Schedule new Retweet
-                    @else
-                        Edit a Retweet
-                    @endif
-                </label>
-                <div class="control">
-                    <input class="input" name="retweet" value="{{ $edit ? $edit->retweet : '' }}" placeholder="https://twitter.com/handle/status/XXX">
-                </div>
-            </div>
-
             <div class="columns">
                 <div class="column">
                     <div class="field">
+                        <label class="label">
+                            @if($edit == null)
+                                Schedule new Tweet
+                            @else
+                                Edit Tweet
+                            @endif
+                        </label>
                         <div class="control">
-                            <input id="datetimepicker" type="text" name="schedule" value="{{ $edit ? $edit->schedule : date('Y-m-d H:i:s') }}">
+                            <textarea class="textarea" name="content">{{ $edit ? $edit->content : '' }}</textarea>
+                            <div id="charnum"><span>{{ $edit ? 280 - strlen($edit->content) : 280 }}</span> / 280</div>
                         </div>
                     </div>
                 </div>
@@ -93,6 +74,37 @@
                                 </span>
                             </span>
                         </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="is-divider" data-content="OR"></div>
+
+            <div class="columns">
+                <div class="column">
+                    <div class="field">
+                        <label class="label">
+                            @if($edit == null)
+                                Schedule new Retweet
+                            @else
+                                Edit a Retweet
+                            @endif
+                        </label>
+                        <div class="control">
+                            <input class="input" name="retweet" value="{{ $edit ? $edit->retweet : '' }}" placeholder="https://twitter.com/handle/status/XXX">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="is-divider" data-content="THEN"></div>
+
+            <div class="columns">
+                <div class="column">
+                    <div class="field">
+                        <div class="control">
+                            <input id="datetimepicker" type="text" name="schedule" value="{{ $edit ? $edit->schedule : date('Y-m-d H:i:s') }}">
+                        </div>
                     </div>
                 </div>
 
