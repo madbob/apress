@@ -70,7 +70,7 @@ class DashboardController extends Controller
 
             $tweet->account_id = $account->id;
 
-            $tweet->content = $request->input('content');
+            $tweet->content = trim($request->input('content'));
             if (empty($tweet->content)) {
                 $tweet->content = '';
                 $tweet->retweet = $request->input('retweet');
