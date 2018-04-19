@@ -28,11 +28,6 @@ class Tweet extends Model
 
         foreach($tweets as $tweet) {
             try {
-                $params = [
-                    'status' => $tweet->content,
-                    'format' => 'json'
-                ];
-
                 $account = $tweet->account;
                 Twitter::reconfig(['token' => $account->oauth_token, 'secret' => $account->oauth_secret_token]);
 
@@ -42,10 +37,23 @@ class Tweet extends Model
                     $media_ids[] = $uploaded_media->media_id_string;
                 }
 
-                if(!empty($media_ids))
-                    $params['media_ids'] = join(',', $media_ids);
+                if (!empty($tweet->content)) {
+                    $params = [
+                        'status' => $tweet->content,
+                        'format' => 'json'
+                    ];
 
-                Twitter::postTweet($params);
+                    if(!empty($media_ids))
+                        $params['media_ids'] = join(',', $media_ids);
+
+                    Twitter::postTweet($params);
+                }
+                else {
+                    if (preg_match('/\/status\/\(\d*\)\/?', $tweet->retweet, $matches)) {
+                        $id = $matches[1];
+                        Twitter::postRt($id);
+                    }
+                }
             }
             catch(\Exception $e) {
                 Log::error('Error sending tweet ' . $tweet->id . ': ' . $e->getMessage());

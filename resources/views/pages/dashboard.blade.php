@@ -38,6 +38,19 @@
                 </div>
             </div>
 
+            <div class="field">
+                <label class="label">
+                    @if($edit == null)
+                        Schedule new Retweet
+                    @else
+                        Edit a Retweet
+                    @endif
+                </label>
+                <div class="control">
+                    <input class="input" name="retweet" value="{{ $edit ? $edit->retweet : '' }}" placeholder="https://twitter.com/handle/status/XXX">
+                </div>
+            </div>
+
             <div class="columns">
                 <div class="column">
                     <div class="field">
@@ -134,9 +147,15 @@
                         </div>
                         <div class="media-content">
                             <div class="content">
-                                <p>
-                                    {!! nl2br($tweet->content) !!}
-                                </p>
+                                @if(!empty($tweet->content))
+                                    <p>
+                                        {!! nl2br($tweet->content) !!}
+                                    </p>
+                                @else
+                                    <p>
+                                        <span class="icon"><i class="fa fa-retweet"></i></span> {{ $tweet->retweet }}
+                                    </p>
+                                @endif
 
                                 @if($tweet->media->isEmpty() == false)
                                     <div class="media-showcase">

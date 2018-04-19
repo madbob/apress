@@ -25,6 +25,8 @@
             <li>unlimited accounts</li>
             <li>unlimited tweets</li>
             <li>choose date and time</li>
+            <li>attach images</li>
+            <li>schedulable retweets</li>
             <li>... stop. Well, I said it is simple...</li>
         </ul>
     </div>

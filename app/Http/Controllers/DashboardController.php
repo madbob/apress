@@ -48,7 +48,6 @@ class DashboardController extends Controller
 
             $this->validate($request, [
                 'account' => 'required',
-                'content' => 'required',
                 'schedule' => 'required',
             ]);
 
@@ -70,7 +69,18 @@ class DashboardController extends Controller
             }
 
             $tweet->account_id = $account->id;
+
             $tweet->content = $request->input('content');
+            if (empty($tweet->content)) {
+                $tweet->content = '';
+                $tweet->retweet = $request->input('retweet');
+                $feedback = 'Retweet scheduled!';
+            }
+            else {
+                $tweet->retweet = '';
+                $feedback = 'Tweet scheduled!';
+            }
+
             $tweet->schedule = $request->input('schedule');
             $tweet->save();
 
@@ -97,7 +107,7 @@ class DashboardController extends Controller
             $tweet->media()->whereNotIn('id', $media_ids)->delete();
 
             DB::commit();
-            return Redirect::to('dashboard')->with('feedback', 'Tweet scheduled!');
+            return Redirect::to('dashboard')->with('feedback', $feedback);
         }
         catch(\Exception $e) {
             Log::error('Error saving tweet: ' . $e->getMessage());
