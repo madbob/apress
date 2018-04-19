@@ -8,6 +8,10 @@
     right: 10px;
 }
 
+.textarea:not([rows]) {
+    min-height: 210px;
+}
+
 .media-preview {
     img {
         max-width: 70%;
