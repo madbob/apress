@@ -49,7 +49,7 @@ class Tweet extends Model
                     Twitter::postTweet($params);
                 }
                 else {
-                    if (preg_match('/\/status\/\(\d*\)\/?', $tweet->retweet, $matches)) {
+                    if (preg_match('/\/status\/\(\d*\)\/?/', $tweet->retweet, $matches)) {
                         $id = $matches[1];
                         Twitter::postRt($id);
                     }
